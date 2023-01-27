@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "881906811156",
+    "project_id": "lutojuan-d0a8d",
+    "storage_bucket": "lutojuan-d0a8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881906811156:android:9356467334fe5066118201",
+        "android_client_info": {
+          "package_name": "com.devtastic.lutojuan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881906811156-lkdpqnd972il3vb5fh86rsefo1jihm3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJOPoOWO-ppODaXepgeZSQ8W8eUL1HIcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881906811156-lkdpqnd972il3vb5fh86rsefo1jihm3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
