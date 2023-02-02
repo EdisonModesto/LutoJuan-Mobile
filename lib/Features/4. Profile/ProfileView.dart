@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lutojuan/Services/AuthService.dart';
 
 import '../../Constants/Colors.dart';
 
@@ -199,7 +200,9 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
               const SizedBox(height:10),
 
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  AuthService().signOut();
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   fixedSize: const Size(409, 50),
