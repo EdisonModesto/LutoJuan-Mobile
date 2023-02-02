@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lutojuan/Features/3.%20CalorieTracking/TrackView.dart';
 import 'package:lutojuan/Features/4.%20Profile/ProfileView.dart';
+import 'package:lutojuan/Services/JsonReadService.dart';
+import 'package:lutojuan/Services/SpoonacularService.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../1. NewsFeed/Home_View.dart';
@@ -59,6 +61,12 @@ class _AppNavBarState extends ConsumerState<AppNavBar> {
     ];
   }
 
+
+  @override
+  void initState() {
+   // ReadJson().loadData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
