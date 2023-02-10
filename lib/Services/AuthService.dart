@@ -35,7 +35,7 @@ class AuthService{
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Fluttertoast.showToast(msg: 'The account already exists for that email.');
+        Fluttertoast.showToast(msg: 'User not found.');
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(msg: 'Wrong password provided for that user.');

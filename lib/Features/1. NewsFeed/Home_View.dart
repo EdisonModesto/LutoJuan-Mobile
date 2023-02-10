@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lutojuan/Features/NavBar/RecipeModel.dart';
 
 import '../../Constants/Colors.dart';
 import 'Home_ViewModel.dart';
@@ -20,6 +22,21 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
   TextEditingController _searchCtrl = TextEditingController();
 
   List<bool> chipValues = [true, false];
+
+
+  String getCal(String summary){
+    List<String> strList = summary.replaceAll("<b>", "").replaceAll("<//b>", "").split(" ");
+
+
+    for(int i = 0; i < strList.length; i++){
+      if(strList[i].contains("calories")){
+        print(strList[i]);
+        return (strList[i-1]);
+      }
+    }
+
+    return "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,88 +170,95 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                         return ListView.separated(
                           itemCount: Random().nextInt(data.recipes!.length),
                           itemBuilder: (context, index){
-                            return Container(
-                              width: size.width,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
+                            return InkWell(
+                              onTap: (){
+                                GoRouter.of(context).push("/recipe", extra: data.recipes![index]);
+                              },
+                              child: Container(
+                                width: size.width,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                    border: Border.all(color: Colors.black, width: 1)
+                                ),
+                                child: ClipRRect(
                                   borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                  border: Border.all(color: Colors.black, width: 1)
-                              ),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 18,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: AppColors().primary,
-                                            border: const Border(
-                                                right: BorderSide(
-                                                    width: 1,
-                                                    color: Colors.black
-                                                )
-                                            )
-                                        ),
-                                        child: data.recipes![index].image == null ? const Center(
-                                          child: Text(
-                                            "No Image",
-                                            style: TextStyle(
-                                                color: Colors.white
-                                            ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 18,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: AppColors().primary,
+                                              border: const Border(
+                                                  right: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black
+                                                  )
+                                              )
                                           ),
-                                        ) :
-                                        Image.network(
-                                          "${data.recipes![index].image}",
-                                          fit: BoxFit.cover,
+                                          child: data.recipes![index].image == null ? const Center(
+                                            child: Text(
+                                              "No Image",
+                                              style: TextStyle(
+                                                  color: Colors.white
+                                              ),
+                                            ),
+                                          ) :
+                                          Image.network(
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            "${data.recipes![index].image}",
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      flex: 30,
-                                      child: Container(
-                                        color: Colors.white60,
-                                        padding: const EdgeInsets.all(15),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${data.recipes![index].title}",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.lato(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              "${data.recipes![index].summary!.replaceAll("<b>", "").replaceAll("</b>", "")}",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 14,
-                                                  color: AppColors().grey,
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "Health Score: ${data.recipes![index].healthScore}%",
-                                                  style: GoogleFonts.lato(),
+                                      Expanded(
+                                        flex: 30,
+                                        child: Container(
+                                          color: Colors.white60,
+                                          padding: const EdgeInsets.all(15),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${data.recipes![index].title}",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.lato(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "${data.recipes![index].summary!.replaceAll("<b>", "").replaceAll("</b>", "")}",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 14,
+                                                    color: AppColors().grey,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "Est Calories: ${getCal(data.recipes![index].summary!)}",
+                                                    style: GoogleFonts.lato(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

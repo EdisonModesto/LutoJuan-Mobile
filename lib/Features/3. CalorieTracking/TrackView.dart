@@ -17,7 +17,7 @@ class TrackView extends ConsumerStatefulWidget {
 class _TrackViewState extends ConsumerState<TrackView> {
   var _selectedDay;
   var _focusedDay;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
