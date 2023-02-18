@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lutojuan/Features/3.%20CalorieTracking/addLogDialog.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../Constants/Colors.dart';
@@ -79,14 +80,31 @@ class _TrackViewState extends ConsumerState<TrackView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Breakfast",
-                        style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Breakfast",
+                            style: GoogleFonts.lato(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          IconButton(
+                            padding: const EdgeInsets.all(0),
+                            splashRadius: 20,
+                            visualDensity: VisualDensity.compact,
+                            onPressed: (){
+                              showDialog(context: context, builder: (builder){
+                                return const addLogDialog();
+                              });
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Column(
                         children: List.generate(1, (index) {
                           return Container(
@@ -131,15 +149,32 @@ class _TrackViewState extends ConsumerState<TrackView> {
                           );
                         }),
                       ),
-                      SizedBox(height: 15,),
-                      Text(
-                        "Lunch",
-                        style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Launch",
+                            style: GoogleFonts.lato(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          IconButton(
+                            padding: const EdgeInsets.all(0),
+                            splashRadius: 20,
+                            visualDensity: VisualDensity.compact,
+                            onPressed: (){
+                              showDialog(context: context, builder: (builder){
+                                return const addLogDialog();
+                              });
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Column(
                         children: List.generate(1, (index) {
                           return Container(
@@ -184,15 +219,32 @@ class _TrackViewState extends ConsumerState<TrackView> {
                           );
                         }),
                       ),
-                      SizedBox(height: 15,),
-                      Text(
-                        "Dinner",
-                        style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Dinner",
+                            style: GoogleFonts.lato(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          IconButton(
+                            padding: const EdgeInsets.all(0),
+                            splashRadius: 20,
+                            visualDensity: VisualDensity.compact,
+                            onPressed: (){
+                              showDialog(context: context, builder: (builder){
+                                return const addLogDialog();
+                              });
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Column(
                         children: List.generate(1, (index) {
                           return Container(
@@ -237,15 +289,32 @@ class _TrackViewState extends ConsumerState<TrackView> {
                           );
                         }),
                       ),
-                      SizedBox(height: 15,),
-                      Text(
-                        "Snacks",
-                        style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Snacks",
+                            style: GoogleFonts.lato(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          IconButton(
+                            padding: const EdgeInsets.all(0),
+                            splashRadius: 20,
+                            visualDensity: VisualDensity.compact,
+                            onPressed: (){
+                              showDialog(context: context, builder: (builder){
+                                return const addLogDialog();
+                              });
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                       Column(
                         children: List.generate(1, (index) {
                           return Container(
@@ -290,14 +359,18 @@ class _TrackViewState extends ConsumerState<TrackView> {
                           );
                         }),
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 10,),
                     ],
                   ),
                 ),
               ),
 
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(context: context, builder: (builder){
+                    return const addLogDialog();
+                  });
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   fixedSize: const Size(409, 53),
