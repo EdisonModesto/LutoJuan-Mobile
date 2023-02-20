@@ -2,12 +2,19 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fluttertoast/fluttertoast.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:hive/hive.dart";
 import "package:lutojuan/Constants/Colors.dart";
+import "package:lutojuan/Services/FirestoreService.dart";
 
 class addLogDialog extends ConsumerStatefulWidget {
   const addLogDialog({
+    required this.date,
+    required this.meal,
     Key? key,
   }) : super(key: key);
+
+  final date;
+  final meal;
 
   @override
   ConsumerState createState() => _addLogDialogState();
@@ -16,6 +23,8 @@ class addLogDialog extends ConsumerStatefulWidget {
 class _addLogDialogState extends ConsumerState<addLogDialog> {
 
   var key = GlobalKey<FormState>();
+
+  TextEditingController nameCtrl = TextEditingController();
 
   List<DropdownMenuItem> items = [
     const DropdownMenuItem(
@@ -28,6 +37,7 @@ class _addLogDialogState extends ConsumerState<addLogDialog> {
 
   @override
   void initState() {
+    print(widget.date);
     for(int i = 1; i < 10; i++){
       items.add(DropdownMenuItem(
         value: "$i",
@@ -66,6 +76,7 @@ class _addLogDialogState extends ConsumerState<addLogDialog> {
                     height: 50,
                     child: TextFormField(
                       cursorColor: AppColors().primary,
+                      controller: nameCtrl,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         filled: true,
@@ -92,9 +103,10 @@ class _addLogDialogState extends ConsumerState<addLogDialog> {
                     },
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (key.currentState!.validate() && value != "Quantity") {
-
+                        FirestoreService().addRecord(widget.date, nameCtrl.text, double.parse(value), 150.0, widget.meal);
+                        Navigator.pop(context);
                       } else {
                         Fluttertoast.showToast(msg: "Please fill all fields", backgroundColor: AppColors().primary, textColor: Colors.white, fontSize: 16,);
                       }

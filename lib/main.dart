@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'Constants/routes.dart';
 import 'Features/0. Authentication/AuthViewModel.dart';
 import 'Features/0. Authentication/Login_View.dart';
@@ -9,7 +10,7 @@ import 'Features/NavBar/Nabar.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
+  await Hive.initFlutter();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

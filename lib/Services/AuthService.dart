@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'FirestoreService.dart';
+
 class AuthService{
 
   String getID(){
@@ -13,6 +15,7 @@ class AuthService{
         email: emailAddress,
         password: password,
       );
+      FirestoreService().createUser();
       context.pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
