@@ -164,7 +164,7 @@ class _TrackViewState extends ConsumerState<TrackView> {
                               }),
                             );
                           }
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         }
                       ),
                       const SizedBox(height: 10,),
@@ -243,7 +243,7 @@ class _TrackViewState extends ConsumerState<TrackView> {
                                 }),
                               );
                             }
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                       ),
                       const SizedBox(height: 10,),
@@ -322,7 +322,7 @@ class _TrackViewState extends ConsumerState<TrackView> {
                                 }),
                               );
                             }
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                       ),
                       const SizedBox(height: 10,),
@@ -401,7 +401,7 @@ class _TrackViewState extends ConsumerState<TrackView> {
                                 }),
                               );
                             }
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                       ),
                       const SizedBox(height: 10,),

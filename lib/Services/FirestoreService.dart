@@ -5,10 +5,22 @@ class FirestoreService{
   void createUser(){
     FirebaseFirestore.instance.collection("Users").doc(AuthService().getID()).set({
       "Name": "User",
+      "Photo": "",
       "Age": 18,
       "Weight": "Not Recorded",
       "Height": "Not Recorded",
-      "Goal" : "Lose Fat"
+      "Goal" : "Lose Weight"
+    });
+  }
+
+  void updateUser(id, name, photo, age, weight, height, goal){
+    FirebaseFirestore.instance.collection("Users").doc(id).update({
+      "Name": name,
+      "Photo": photo,
+      "Age": age,
+      "Weight": weight,
+      "Height": height,
+      "Goal" : goal
     });
   }
 
