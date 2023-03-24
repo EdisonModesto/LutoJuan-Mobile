@@ -15,7 +15,7 @@ class ReadJson{
     final jsonResponse = json.decode(jsonString);
     RecipeModel recipes = RecipeModel.fromJson(jsonResponse);
     for (var i = 0; i < recipes.recipes!.length; i++) {
-      print(recipes.recipes![i].title);
+      print(recipes.recipes![i].recipeName);
     }
   }
 

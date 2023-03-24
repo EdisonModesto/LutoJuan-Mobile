@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lutojuan/Constants/articles.dart';
 import 'package:lutojuan/Features/NavBar/RecipeModel.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../Constants/Colors.dart';
 import 'Home_ViewModel.dart';
@@ -23,20 +25,6 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
 
   List<bool> chipValues = [true, false];
 
-
-  String getCal(String summary){
-    List<String> strList = summary.replaceAll("<b>", "").replaceAll("<//b>", "").split(" ");
-
-
-    for(int i = 0; i < strList.length; i++){
-      if(strList[i].contains("calories")){
-        print(strList[i]);
-        return (strList[i-1]);
-      }
-    }
-
-    return "";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +67,9 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                     Expanded(
                       child: TextField(
                         controller: _searchCtrl,
+                        onChanged: (val){
+                          setState(() {});
+                        },
                         decoration: const InputDecoration(
                           border: InputBorder.none
                         ),
@@ -166,9 +157,12 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                     feedProvider.when(
                       data: (data){
                         data.recipes!.shuffle();
-                        print(data.recipes!.length);
-                        return ListView.separated(
-                          itemCount: Random().nextInt(data.recipes!.length),
+
+                        List<Recipe> searchResults = data.recipes!.where((element) => element.recipeName!.toLowerCase().contains(_searchCtrl.text.toLowerCase())).toList();
+                        print(searchResults.length);
+                        return _searchCtrl.text == "" ?
+                        ListView.separated(
+                          itemCount: data.recipes!.length, // Random().nextInt(data.recipes!.length),
                           itemBuilder: (context, index){
                             return InkWell(
                               onTap: (){
@@ -198,7 +192,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                                   )
                                               )
                                           ),
-                                          child: data.recipes![index].image == null ? const Center(
+                                          child: data.recipes![index].recipeImageUrl == null ? const Center(
                                             child: Text(
                                               "No Image",
                                               style: TextStyle(
@@ -209,7 +203,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                           Image.network(
                                             height: double.infinity,
                                             width: double.infinity,
-                                            "${data.recipes![index].image}",
+                                            "${data.recipes![index].recipeImageUrl}",
                                             fit: BoxFit.fill,
                                           ),
                                         ),
@@ -223,7 +217,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "${data.recipes![index].title}",
+                                                "${data.recipes![index].recipeName}",
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: GoogleFonts.lato(
@@ -235,7 +229,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                "${data.recipes![index].summary!.replaceAll("<b>", "").replaceAll("</b>", "")}",
+                                                "${data.recipes![index].recipeDescription!.replaceAll("<b>", "").replaceAll("</b>", "")}",
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: GoogleFonts.lato(
@@ -248,7 +242,108 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    "Est Calories: ${getCal(data.recipes![index].summary!)}",
+                                                    "Est Calories: ${data.recipes![index].recipeCalories}",
+                                                    style: GoogleFonts.lato(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(height: 15,);
+                          },
+                        )
+                            :
+                        ListView.separated(
+                          itemCount: searchResults.length, // Random().nextInt(data.recipes!.length),
+                          itemBuilder: (context, index){
+                            return InkWell(
+                              onTap: (){
+                                GoRouter.of(context).push("/recipe", extra: searchResults![index]);
+                              },
+                              child: Container(
+                                width: size.width,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                    border: Border.all(color: Colors.black, width: 1)
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 18,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: AppColors().primary,
+                                              border: const Border(
+                                                  right: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black
+                                                  )
+                                              )
+                                          ),
+                                          child: searchResults![index].recipeImageUrl == null ? const Center(
+                                            child: Text(
+                                              "No Image",
+                                              style: TextStyle(
+                                                  color: Colors.white
+                                              ),
+                                            ),
+                                          ) :
+                                          Image.network(
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            "${searchResults![index].recipeImageUrl}",
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 30,
+                                        child: Container(
+                                          color: Colors.white60,
+                                          padding: const EdgeInsets.all(15),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${searchResults![index].recipeName}",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.lato(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "${searchResults![index].recipeDescription}",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.lato(
+                                                  fontSize: 14,
+                                                  color: AppColors().grey,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "Est Calories: ${searchResults![index].recipeCalories}",
                                                     style: GoogleFonts.lato(),
                                                   ),
                                                 ],
@@ -294,78 +389,34 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                       ),
                     ),
                     SizedBox(height: 15,),
-                    Container(
-                  width: size.width,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                      border: Border.all(color: Colors.black, width: 1)
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 18,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: AppColors().primary,
-                                border: const Border(
-                                    right: BorderSide(
-                                        width: 1,
-                                        color: Colors.black
-                                    )
-                                )
-                            ),
-                            child: const Center(
-                              child: Icon(Icons.image, color: Colors.white,),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 30,
-                          child: Container(
+                    InkWell(
+                      onTap: (){
+                        context.push("/article");
+
+                      },
+                      child: Container(
+                        width: size.width,
+                        height: 150,
+                        decoration: BoxDecoration(
                             color: Colors.white60,
-                            padding: const EdgeInsets.all(15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Recipe Title",
-                                  style: GoogleFonts.lato(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "Recipe Description",
-                                  style: GoogleFonts.lato(
-                                      fontSize: 14,
-                                      color: AppColors().grey
-                                  ),
-                                ),
-                                const Spacer(),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "Est Calories: 500",
-                                      style: GoogleFonts.lato(),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                            borderRadius: const BorderRadius.all(Radius.circular(12)),
+                            border: Border.all(color: Colors.black, width: 1)
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(12)),
+                         child: Center(
+                           child: Text(
+                            "Open Article",
+                            style: GoogleFonts.lato(
+                              color: AppColors().primary,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold
+                        ),
+                      ),
+                         ),
                   ),
                 ),
+                    ),
                     SizedBox(height: 15,),
                     Text(
                       "Trivia of the Day",

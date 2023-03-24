@@ -37,25 +37,25 @@ class _AppNavBarState extends ConsumerState<AppNavBar> {
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
         title: ("Home"),
-        activeColorPrimary: CupertinoColors.activeOrange,
+        activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.fastfood_outlined),
         title: ("Create Recipe"),
-        activeColorPrimary: CupertinoColors.activeOrange,
+        activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.calendar),
         title: ("Calorie Tracker"),
-        activeColorPrimary: CupertinoColors.activeOrange,
+        activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.person),
         title: ("Profile"),
-        activeColorPrimary: CupertinoColors.activeOrange,
+        activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];

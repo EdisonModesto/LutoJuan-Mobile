@@ -9,7 +9,7 @@ class ViewRecipe extends ConsumerStatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  final Recipes recipe;
+  final Recipe recipe;
 
   @override
   ConsumerState createState() => _ViewRecipeState();
@@ -29,38 +29,37 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${widget.recipe.title}" ,
+                  "${widget.recipe.recipeName}" ,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Container(
                   height: 200,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("${widget.recipe.image}"),
+                      image: NetworkImage("${widget.recipe.recipeImageUrl}"),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
                 Text(
-                 "Servings: ${widget.recipe.servings}" ,
+                  "Source: ${widget.recipe.recipeSourceUrl}",
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 20),
                 HtmlWidget(
-                  "${widget.recipe.summary}",
+                  "${widget.recipe.recipeDescription}",
                 ),
                 const SizedBox(height: 20),
-                Text(
+                const Text(
                   "Ingredients" ,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -68,9 +67,9 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                 const SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(widget.recipe.extendedIngredients!.length, (index){
+                  children: List.generate(widget.recipe.recipeIngredients!.length, (index){
                     return Text(
-                      "${widget.recipe.extendedIngredients![index].amount} - ${widget.recipe.extendedIngredients![index].originalName}" ,
+                      "${widget.recipe.recipeIngredients![index].quantity} - ${widget.recipe.recipeIngredients![index].name}" ,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -80,16 +79,16 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                 ),
                 const SizedBox(height: 20),
 
-                Text(
+                const Text(
                   "Instructions" ,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "${widget.recipe.instructions}" ,
+                  "${widget.recipe.recipeInstructions}" ,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,

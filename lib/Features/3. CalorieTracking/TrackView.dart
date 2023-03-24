@@ -251,7 +251,7 @@ class _TrackViewState extends ConsumerState<TrackView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Diner",
+                            "Dinner",
                             style: GoogleFonts.lato(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold

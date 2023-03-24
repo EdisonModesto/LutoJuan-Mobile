@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lutojuan/Constants/Colors.dart';
+import 'package:lutojuan/Features/2.%20CreateRecipe/CreateViewModel.dart';
+import 'package:lutojuan/Features/2.%20CreateRecipe/addIngreDialog.dart';
+
+import '../NavBar/RecipeModel.dart';
 
 class CreateView extends ConsumerStatefulWidget {
   const CreateView({
@@ -13,8 +17,13 @@ class CreateView extends ConsumerStatefulWidget {
 }
 
 class _CreateViewState extends ConsumerState<CreateView> {
+
+
+
   @override
   Widget build(BuildContext context) {
+    List<Ingredient> ingredient = ref.watch(ingredientProvider);
+
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Padding(
@@ -76,46 +85,53 @@ class _CreateViewState extends ConsumerState<CreateView> {
               const SizedBox(height:15),
               Expanded(
                 child: ListView.separated(
-                  itemCount: 3,
+                  itemCount: ingredient.length,
                   itemBuilder: (context, index){
-                    return Container(
-                      padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.white60,
-                        borderRadius: const BorderRadius.all(Radius.circular(12)),
-                        border: Border.all(width: 1, color: Colors.black),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "No Recipe Found",
-                                style: GoogleFonts.lato(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors().primary
+                    return Dismissible(
+                      key: Key(ingredient[index].name),
+                      onDismissed: (direction){
+                        ref.read(ingredientProvider.notifier).removeIngredient(ingredient[index].name);
+                        setState(() {});
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.white60,
+                          borderRadius: const BorderRadius.all(Radius.circular(12)),
+                          border: Border.all(width: 1, color: Colors.black),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${ingredient[index].name}",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors().primary
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Quantity",
-                                style: GoogleFonts.lato(
-                                    color: AppColors().grey
+                                Text(
+                                  "Quantity: ${ingredient[index].quantity}",
+                                  style: GoogleFonts.lato(
+                                      color: AppColors().grey
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "0Kcal",
-                            style: GoogleFonts.lato(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black
+                              ],
                             ),
-                          ),
-                        ],
+                            Text(
+                              "${ingredient[index].calories}Kcal",
+                              style: GoogleFonts.lato(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -125,7 +141,11 @@ class _CreateViewState extends ConsumerState<CreateView> {
                 )
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(context: context, builder: (builder){
+                    return addIngreDialog();
+                  });
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   fixedSize: const Size(409, 53),
