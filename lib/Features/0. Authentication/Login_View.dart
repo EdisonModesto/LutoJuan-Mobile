@@ -38,7 +38,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 children: [
                   CircleAvatar(
                     radius: 50.0,
-                    backgroundColor: AppColors().primary,
+                    backgroundColor: Color(0xffD4486E),
                     child: const Icon(Icons.person_outline, color: Colors.white,),
                   ),
                   Form(
@@ -142,7 +142,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             fixedSize: const Size(409, 50),
-                            backgroundColor: AppColors().primary,
+                            backgroundColor: Color(0xffD4486E),
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(6))
                             ),

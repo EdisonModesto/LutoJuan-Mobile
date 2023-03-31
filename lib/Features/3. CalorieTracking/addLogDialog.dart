@@ -75,7 +75,7 @@ class _addLogDialogState extends ConsumerState<addLogDialog> {
                   SizedBox(
                     height: 50,
                     child: TextFormField(
-                      cursorColor: AppColors().primary,
+                      cursorColor:Color(0xffCF8145),
                       controller: nameCtrl,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -94,7 +94,7 @@ class _addLogDialogState extends ConsumerState<addLogDialog> {
                     isExpanded: true,
                     borderRadius: BorderRadius.circular(10),
                     value: value,
-                    iconEnabledColor: AppColors().primary,
+                    iconEnabledColor: Color(0xffCF8145),
                     iconSize: 40,
                     onChanged: (value) {
                       setState(() {
@@ -108,13 +108,13 @@ class _addLogDialogState extends ConsumerState<addLogDialog> {
                         FirestoreService().addRecord(widget.date, nameCtrl.text, double.parse(value), 150.0, widget.meal);
                         Navigator.pop(context);
                       } else {
-                        Fluttertoast.showToast(msg: "Please fill all fields", backgroundColor: AppColors().primary, textColor: Colors.white, fontSize: 16,);
+                        Fluttertoast.showToast(msg: "Please fill all fields", backgroundColor: Color(0xffCF8145), textColor: Colors.white, fontSize: 16,);
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       fixedSize: Size(MediaQuery.of(context).size.width, 50),
-                      backgroundColor: AppColors().primary,
+                      backgroundColor: Color(0xffCF8145),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

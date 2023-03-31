@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lutojuan/Constants/Colors.dart';
+import 'package:lutojuan/Features/1.%20NewsFeed/Home_ViewModel.dart';
 import 'package:lutojuan/Features/2.%20CreateRecipe/CreateViewModel.dart';
 import 'package:lutojuan/Features/2.%20CreateRecipe/addIngreDialog.dart';
 
@@ -18,112 +20,87 @@ class CreateView extends ConsumerStatefulWidget {
 
 class _CreateViewState extends ConsumerState<CreateView> {
 
-
-
   @override
   Widget build(BuildContext context) {
     List<Ingredient> ingredient = ref.watch(ingredientProvider);
+    var recipeProvider = ref.watch(HomeViewModel);
 
     var size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.only(left: size.width * 0.1, right: size.width * 0.1, top: size.height * 0.05, bottom: size.height * 0.03),
-        child: SizedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Create Recipe",
-                style: GoogleFonts.lato(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+      child: recipeProvider.when(
+        data: (data){
+
+          var matchedIngredients = data.recipes!.where((element){
+            int recipeLength = element.recipeIngredients.length;
+            int matchCounter = 0;
+            for(int i = 0; i < element.recipeIngredients.length; i++){
+              for(int j = 0; j < ingredient.length; j++){
+                if(element.recipeIngredients[i].name == ingredient[j].name){
+                  matchCounter += 1;
+                }
+              }
+            }
+            return matchCounter == recipeLength;
+          }).toList();
+
+          return Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xffFAECB3),
+                  Color(0xffFFFFFF),
+                ],
               ),
-              const SizedBox(height:15),
-              Text(
-                "Get a recipe based on your ingredients",
-                style: GoogleFonts.lato(
-                  fontSize: 16,
-                  color: AppColors().grey
-                ),
-              ),
-              const SizedBox(height:15),
-              Container(
-                padding: const EdgeInsets.all(25),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  border: Border.all(width: 1, color: Colors.black),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(left: size.width * 0.1, right: size.width * 0.1, top: size.height * 0.05, bottom: size.height * 0.03),
+              child: SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "No Recipe Found",
+                      "Create Recipe",
                       style: GoogleFonts.lato(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors().primary
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(height:15),
                     Text(
-                      "0Kcal",
+                      "Get a recipe based on your ingredients",
                       style: GoogleFonts.lato(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
+                          color: AppColors().grey
                       ),
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height:15),
-              const Divider(
-                height: 2,
-                thickness: 3,
-                color: Colors.black,
-              ),
-              const SizedBox(height:15),
-              Expanded(
-                child: ListView.separated(
-                  itemCount: ingredient.length,
-                  itemBuilder: (context, index){
-                    return Dismissible(
-                      key: Key(ingredient[index].name),
-                      onDismissed: (direction){
-                        ref.read(ingredientProvider.notifier).removeIngredient(ingredient[index].name);
-                        setState(() {});
+                    const SizedBox(height:15),
+                    InkWell(
+                      onTap: (){
+                        if(matchedIngredients.isNotEmpty) {
+                          GoRouter.of(context).push("/recipe", extra: matchedIngredients[0]);
+                        }
                       },
                       child: Container(
-                        padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
+                        padding: const EdgeInsets.all(25),
                         decoration: BoxDecoration(
-                          color: Colors.white60,
                           borderRadius: const BorderRadius.all(Radius.circular(12)),
                           border: Border.all(width: 1, color: Colors.black),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${ingredient[index].name}",
-                                  style: GoogleFonts.lato(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors().primary
-                                  ),
-                                ),
-                                Text(
-                                  "Quantity: ${ingredient[index].quantity}",
-                                  style: GoogleFonts.lato(
-                                      color: AppColors().grey
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              matchedIngredients.isEmpty ? "No recipe found" : matchedIngredients[0].recipeName,
+                              style: GoogleFonts.lato(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff7A6C2D)
+                              ),
                             ),
                             Text(
-                              "${ingredient[index].calories}Kcal",
+                              matchedIngredients.isEmpty ? "0Kcal" : matchedIngredients[0].recipeCalories.toString() + "Kcal",
                               style: GoogleFonts.lato(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -133,32 +110,105 @@ class _CreateViewState extends ConsumerState<CreateView> {
                           ],
                         ),
                       ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(height: 10,);
-                  },
-                )
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(context: context, builder: (builder){
-                    return addIngreDialog();
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  fixedSize: const Size(409, 53),
-                  backgroundColor: AppColors().primary,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(6))
-                  ),
+                    ),
+                    const SizedBox(height:15),
+                    const Divider(
+                      height: 2,
+                      thickness: 3,
+                      color: Colors.black,
+                    ),
+                    const SizedBox(height:15),
+                    Expanded(
+                        child: ListView.separated(
+                          itemCount: ingredient.length,
+                          itemBuilder: (context, index){
+                            return Dismissible(
+                              key: Key(ingredient[index].name),
+                              onDismissed: (direction){
+                                ref.read(ingredientProvider.notifier).removeIngredient(ingredient[index].name);
+                                setState(() {});
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white60,
+                                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                  border: Border.all(width: 1, color: Colors.black),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${ingredient[index].name}",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors().primary
+                                          ),
+                                        ),
+                                        Text(
+                                          "Quantity: ${ingredient[index].quantity}",
+                                          style: GoogleFonts.lato(
+                                              color: AppColors().grey
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      "${ingredient[index].calories}Kcal",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(height: 10,);
+                          },
+                        )
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(context: context, builder: (builder){
+                          return const addIngreDialog();
+                        }).whenComplete((){
+                          setState(() {});
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        fixedSize: const Size(409, 53),
+                        backgroundColor: const Color(0xffE0C552),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(6))
+                        ),
+                      ),
+                      child: const Text('Add Ingredient'),
+                    ),
+                  ],
                 ),
-                child: const Text('Add Ingredient'),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
+        error: (error, stack){
+          return const Center(
+            child: Text("Error"),
+          );
+        },
+        loading: (){
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,33 @@
 {
   "recipes": [
     {
+      "recipe_name": "Test Recipe",
+      "recipe_description": "Pork Sinigang is a classic Filipino sour soup made with pork, vegetables, and tamarind broth. It's a comfort food that's perfect for cold or rainy days.",
+      "recipe_calories": "450",
+      "recipe_servingSize": "4",
+      "recipe_source_url": "https://www.delish.com/cooking/recipe-ideas/recipes/a57455/easy-pork-sinigang-recipe/",
+      "recipe_ingredients": [
+        {
+          "name": "Pork",
+          "calories": "400",
+          "quantity": "1 lb"
+        },
+        {
+          "name": "Garlic",
+          "calories": "5",
+          "quantity": "3 cloves"
+        },
+        {
+          "name": "Soy Sauce",
+          "calories": "10",
+          "quantity": "1/2 cup"
+        }
+      ],
+      "recipe_instructions": "1. In a large pot, bring water and pork to a boil. Skim off any foam.\n2. Add onions and tomatoes. Simmer for 30 minutes.\n3. Add long green beans and eggplant. Cook for 10 minutes.\n4. Add tamarind soup base and spinach. Stir well.\n5. Simmer for 5 minutes.\n6. Serve hot with rice.",
+      "recipe_image_url": "https://hips.hearstapps.com/hmg-prod/images/easy-pork-sinigang-recipe-1525187612.jpg"
+    },
+
+    {
       "recipe_name": "Pork Sinigang",
       "recipe_description": "Pork Sinigang is a classic Filipino sour soup made with pork, vegetables, and tamarind broth. It's a comfort food that's perfect for cold or rainy days.",
       "recipe_calories": "450",
@@ -59,42 +86,42 @@
       "recipe_source_url": "https://www.allrecipes.com/recipe/246307/filipino-pork-adobo/",
       "recipe_ingredients": [
         {
-          "name": "pork shoulder, cut into bite-size pieces",
+          "name": "Pork",
           "calories": "400",
           "quantity": "1 lb"
         },
         {
-          "name": "garlic, minced",
+          "name": "Garlic",
           "calories": "5",
           "quantity": "3 cloves"
         },
         {
-          "name": "soy sauce",
+          "name": "Soy Sauce",
           "calories": "10",
           "quantity": "1/2 cup"
         },
         {
-          "name": "white vinegar",
+          "name": "Vinegar",
           "calories": "10",
           "quantity": "1/2 cup"
         },
         {
-          "name": "water",
+          "name": "Water",
           "calories": "0",
           "quantity": "1/2 cup"
         },
         {
-          "name": "bay leaves",
+          "name": "Bay Leaves",
           "calories": "0",
           "quantity": "2 leaves"
         },
         {
-          "name": "black peppercorns",
+          "name": "Peppercorns",
           "calories": "5",
           "quantity": "1 tsp"
         },
         {
-          "name": "brown sugar",
+          "name": "Brown Sugar",
           "calories": "50",
           "quantity": "2 tbsp"
         }
@@ -552,6 +579,21 @@
     }
   ],
   "ingredients": [
+    {
+      "name": "Pork",
+      "calories": "400",
+      "quantity": "1 lb"
+    },
+    {
+      "name": "Garlic",
+      "calories": "5",
+      "quantity": "3 cloves"
+    },
+    {
+      "name": "Soy Sauce",
+      "calories": "10",
+      "quantity": "1/2 cup"
+    },
     {
       "name": "Chicken Breast",
       "calories": "165",

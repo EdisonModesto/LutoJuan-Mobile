@@ -37,10 +37,10 @@ class _SignupViewState extends ConsumerState<SignupView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 50.0,
-                      backgroundColor: AppColors().primary,
-                      child: const Icon(Icons.person_outline, color: Colors.white,),
+                      backgroundColor:  Color(0xffD4486E),
+                      child: Icon(Icons.person_outline, color: Colors.white,),
                     ),
                     Form(
                       key: key,
@@ -187,7 +187,7 @@ class _SignupViewState extends ConsumerState<SignupView> {
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
                               fixedSize: const Size(409, 50),
-                              backgroundColor: AppColors().primary,
+                              backgroundColor:  const Color(0xffD4486E),
                               shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(6))
                               ),

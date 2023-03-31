@@ -103,7 +103,7 @@ class _addIngreDialogState extends ConsumerState<addIngreDialog> {
                                 },
                                 title: Text(
                                   data.ingredients![item].name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                   ),
                                 ),
@@ -134,11 +134,12 @@ class _addIngreDialogState extends ConsumerState<addIngreDialog> {
                           isExpanded: true,
                           borderRadius: BorderRadius.circular(10),
                           value: value,
-                          iconEnabledColor: AppColors().primary,
+                          iconEnabledColor: const Color(0xffE0C552),
                           iconSize: 40,
                           onChanged: (value) {
                             setState(() {
                               selectedIngredient.quantity = value.toString();
+                              selectedIngredient.calories = (double.parse(selectedIngredient.calories) * double.parse(value.toString())).toString();
                               this.value = value.toString();
                             });
                           },
@@ -152,7 +153,7 @@ class _addIngreDialogState extends ConsumerState<addIngreDialog> {
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           fixedSize: Size(MediaQuery.of(context).size.width, 50),
-                          backgroundColor: AppColors().primary,
+                          backgroundColor: const Color(0xffE0C552),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
