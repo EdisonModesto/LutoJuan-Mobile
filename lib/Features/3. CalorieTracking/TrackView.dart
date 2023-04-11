@@ -70,7 +70,16 @@ class _TrackViewState extends ConsumerState<TrackView> {
                       lastDay: DateTime.utc(2030, 3, 14),
                       focusedDay: DateTime.now(),
                       headerVisible: false,
-
+                      calendarStyle: CalendarStyle(
+                        selectedDecoration: BoxDecoration(
+                          color: Color(0xffFE8945),
+                          shape: BoxShape.circle,
+                        ),
+                        todayDecoration: BoxDecoration(
+                          color: Color(0xffFE8945),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
                       selectedDayPredicate: (day) {
                         return isSameDay(_selectedDay, day);
                       },

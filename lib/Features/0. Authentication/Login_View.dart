@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gif/flutter_gif.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lutojuan/Constants/Colors.dart';
 import 'package:lutojuan/Features/0.%20Authentication/SignUp_View.dart';
+import 'package:lutojuan/Features/0.%20Authentication/loginLoading.dart';
 import 'package:lutojuan/Features/NavBar/Nabar.dart';
 import 'package:lutojuan/Services/AuthService.dart';
 
@@ -18,10 +21,11 @@ class LoginView extends ConsumerStatefulWidget {
   ConsumerState createState() => _LoginViewState();
 }
 
-class _LoginViewState extends ConsumerState<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> with SingleTickerProviderStateMixin {
   var key = GlobalKey<FormState>();
   var _emailCtrl = TextEditingController();
   var _passCtrl = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +40,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 50.0,
                     backgroundColor: Color(0xffD4486E),
-                    child: const Icon(Icons.person_outline, color: Colors.white,),
+                    child: Icon(Icons.person_outline, color: Colors.white,),
                   ),
                   Form(
                     key: key,
@@ -137,12 +141,30 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         const SizedBox(height: 10,),
                         ElevatedButton(
                           onPressed: () {
-                            AuthService().signIn(_emailCtrl.text, _passCtrl.text);
+                            if(key.currentState!.validate()){
+                              showDialog(context: context, builder: (builder){
+                                return LoginLoading(
+                                  email: _emailCtrl.text,
+                                  pass: _passCtrl.text,
+                                );
+                              });
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: "Please fill up all the fields",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                            }
+                            //AuthService().signIn(_emailCtrl.text, _passCtrl.text);
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             fixedSize: const Size(409, 50),
-                            backgroundColor: Color(0xffD4486E),
+                            backgroundColor: const Color(0xffD4486E),
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(6))
                             ),

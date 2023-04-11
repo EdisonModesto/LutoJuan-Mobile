@@ -580,6 +580,11 @@
   ],
   "ingredients": [
     {
+      "name": "Vinegar",
+      "calories": "10",
+      "quantity": "1/2 cup"
+    },
+    {
       "name": "Pork",
       "calories": "400",
       "quantity": "1 lb"
@@ -686,6 +691,11 @@
     },
     {
       "name": "Pepper",
+      "calories": "0",
+      "quantity": "to taste"
+    },
+    {
+      "name": "Water",
       "calories": "0",
       "quantity": "to taste"
     }

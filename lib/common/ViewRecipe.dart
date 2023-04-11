@@ -37,7 +37,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${widget.recipe.recipeName}" ,
+                    widget.recipe.recipeName ,
                     style: GoogleFonts.fredokaOne(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage("${widget.recipe.recipeImageUrl}"),
+                        image: NetworkImage(widget.recipe.recipeImageUrl),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -61,9 +61,17 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                       fontSize: 14,
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Serving Size: ${widget.recipe.recipeServingSize}",
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
                   const SizedBox(height: 20),
+
                   HtmlWidget(
-                    "${widget.recipe.recipeDescription}",
+                    widget.recipe.recipeDescription,
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -97,7 +105,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "${widget.recipe.recipeInstructions}" ,
+                    widget.recipe.recipeInstructions ,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,

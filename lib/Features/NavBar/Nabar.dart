@@ -9,6 +9,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../1. NewsFeed/Home_View.dart';
 import '../2. CreateRecipe/Create_View.dart';
+import 'generateLoading.dart';
 
 class AppNavBar extends ConsumerStatefulWidget {
   const AppNavBar({
@@ -25,35 +26,35 @@ class _AppNavBarState extends ConsumerState<AppNavBar> {
 
   List<Widget> _buildScreens() {
     return [
-      HomeVIew(),
-      CreateView(),
-      TrackView(),
-      ProfileView()
+      const HomeVIew(),
+      const CreateView(),
+      const TrackView(),
+      const ProfileView()
     ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
+        icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.fastfood_outlined),
+        icon: const Icon(Icons.fastfood_outlined),
         title: ("Create Recipe"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.calendar),
+        icon: const Icon(CupertinoIcons.calendar),
         title: ("Calorie Tracker"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.person),
+        icon: const Icon(CupertinoIcons.person),
         title: ("Profile"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -87,16 +88,23 @@ class _AppNavBarState extends ConsumerState<AppNavBar> {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties( // Navigation Bar's items animation properties.
+      itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
+      screenTransitionAnimation: const ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
         animateTabTransition: true,
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property.
+      navBarStyle: NavBarStyle.style1, // Choos
+      onItemSelected: (index){
+        if(index == 1){
+          showDialog(context: context, builder: (builder){
+            return const GenerateLoading();
+          });
+        }
+      },// e the nav bar style with this property.
     );
   }
 }

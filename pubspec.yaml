@@ -54,6 +54,7 @@ dependencies:
   flutter_launcher_icons: ^0.12.0
   field_suggestion: ^0.2.5
   http: ^0.13.5
+  flutter_gif: ^0.0.4
 
 dependency_overrides:
   intl: ^0.18.0
