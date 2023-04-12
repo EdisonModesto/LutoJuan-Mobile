@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class NPointService{
 
-  Future<RecipeModel?> makeApiCall() async {
+  Future<RecipeModel> makeApiCall() async {
     var response = await http.get(Uri.parse(npointEndpoint));
     if (response.statusCode == 200) {
       //print(response.body);
@@ -16,7 +16,7 @@ class NPointService{
     } else {
       print('Request failed with status: ${response.statusCode}');
     }
-    return null;
+    return RecipeModel(recipes: []);
   }
 
 }

@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lutojuan/Constants/articles.dart';
+import 'package:lutojuan/Constants/trivias.dart';
 import 'package:lutojuan/Features/NavBar/RecipeModel.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -24,6 +26,17 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
   TextEditingController _searchCtrl = TextEditingController();
 
   List<bool> chipValues = [true, false];
+
+  late int seed;
+
+  @override
+  void initState() {
+    DateTime now = DateTime.now();
+
+    // Generate a seed for the Random class using the current date
+    seed = now.year + now.month + now.day;
+    super.initState();
+  }
 
 
   @override
@@ -458,22 +471,26 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        "Trivia Headline",
+                                      AutoSizeText(
+                                        triviaList![Random(seed).nextInt(triviaList.length-1)].trivia,
                                         style: GoogleFonts.lato(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18,
                                           color: Color(0xff306479),
                                         ),
+                                        textAlign: TextAlign.center,
+                                        minFontSize: 0,
+                                        maxFontSize: 18,
+                                        maxLines: 3,
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Text(
-                                        "Trivia Content",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 16,
-                                        ),
+                                      AutoSizeText(
+                                        "Source: ${triviaList![Random(seed).nextInt(triviaList.length-1)].source}",
+                                        style: GoogleFonts.lato(),
+                                        textAlign: TextAlign.center,
+                                        minFontSize: 0,
+                                        maxFontSize: 18,
                                       ),
                                     ],
                                   ),

@@ -45,7 +45,15 @@ class _CreateViewState extends ConsumerState<CreateView> with SingleTickerProvid
             int matchCounter = 0;
             for(int i = 0; i < element.recipeIngredients.length; i++){
               for(int j = 0; j < ingredient.length; j++){
-                if(element.recipeIngredients[i].name == ingredient[j].name){
+                var formattedQuantity = ingredient[j].quantity.split(" ");
+                double convertedQuantity = 0.0;
+                if(formattedQuantity[1] == "kg"){
+                  convertedQuantity = double.parse(formattedQuantity[0]) * 1000;
+                } else {
+                  print(formattedQuantity);
+                  convertedQuantity = double.parse(formattedQuantity[0]);
+                }
+                if(element.recipeIngredients[i].name == ingredient[j].name && convertedQuantity >= double.parse(element.recipeIngredients[i].quantity)){
                   matchCounter += 1;
                 }
               }

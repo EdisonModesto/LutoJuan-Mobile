@@ -24,7 +24,9 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
 
   @override
   void initState() {
-    var rand = Random().nextInt(8);
+    DateTime now = DateTime.now();
+    // Generate a seed for the Random class using the current date
+    int seed = now.year + now.month + now.day;
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
@@ -44,7 +46,7 @@ class _ArticleViewState extends ConsumerState<ArticleView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(Articles().articles[rand]));
+      ..loadRequest(Uri.parse(Articles().articles[Random(seed).nextInt(Articles().articles.length)]));
     super.initState();
   }
 

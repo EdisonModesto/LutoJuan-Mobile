@@ -10,6 +10,6 @@ import '../NavBar/RecipeModel.dart';
 var HomeViewModel = FutureProvider((ref) async {
   String jsonString = await ReadJson().loadRecipe();
   final jsonResponse = json.decode(jsonString);
-  RecipeModel recipes = await NPointService().makeApiCall() ?? RecipeModel.fromJson(jsonResponse);
+  RecipeModel recipes = await NPointService().makeApiCall();
   return recipes;
 });

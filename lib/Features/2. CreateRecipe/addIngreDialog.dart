@@ -22,26 +22,28 @@ class _addIngreDialogState extends ConsumerState<addIngreDialog> {
   TextEditingController nameCtrl = TextEditingController();
   final boxController = BoxController();
 
+  TextEditingController amountCtrl = TextEditingController();
+
   List<DropdownMenuItem> items = [
     const DropdownMenuItem(
-      value: "Quantity",
-      child: Text("Quantity"),
+      value: "ml/gram",
+      child: Text("ml/gram"),
+    ),
+    const DropdownMenuItem(
+      value: "kg",
+      child: Text("kg"),
     )
   ];
 
-  var value = "Quantity";
+  var value = "ml/gram";
 
   Ingredient selectedIngredient = Ingredient(name: "", quantity: "", calories: "");
+  Ingredient modifiedIngredient = Ingredient(name: "", quantity: "", calories: "");
+
 
   @override
   void initState() {
     //print(widget.date);
-    for(int i = 1; i < 10; i++){
-      items.add(DropdownMenuItem(
-        value: "$i",
-        child: Text("$i"),
-      ));
-    }
     super.initState();
   }
 
@@ -98,6 +100,11 @@ class _addIngreDialogState extends ConsumerState<addIngreDialog> {
                                 onTap: () {
                                   nameCtrl.text = data.ingredients![item].name;
                                   selectedIngredient = data.ingredients![item];
+                                  modifiedIngredient = Ingredient(
+                                      name: data.ingredients![item].name,
+                                      quantity: "1",
+                                      calories: data.ingredients![item].calories
+                                  );
                                   setState(() {});
                                   boxController.close?.call();
                                 },
@@ -129,26 +136,67 @@ class _addIngreDialogState extends ConsumerState<addIngreDialog> {
                       ),
                       Visibility(
                         visible: selectedIngredient.name != "",
-                        child: DropdownButton(
-                          items: items,
-                          isExpanded: true,
-                          borderRadius: BorderRadius.circular(10),
-                          value: value,
-                          iconEnabledColor: const Color(0xffE0C552),
-                          iconSize: 40,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedIngredient.quantity = value.toString();
-                              selectedIngredient.calories = (double.parse(selectedIngredient.calories) * double.parse(value.toString())).toString();
-                              this.value = value.toString();
-                            });
-                          },
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 50,
+                                child: TextFormField(
+                                  cursorColor:Color(0xffCF8145),
+                                  controller: amountCtrl,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                                    filled: true,
+                                    fillColor: AppColors().light,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    labelText: "Amount",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Expanded(
+                              child: DropdownButton(
+                                items: items,
+                                isExpanded: true,
+                                borderRadius: BorderRadius.circular(10),
+                                value: value,
+                                iconEnabledColor: Color(0xffCF8145),
+                                iconSize: 40,
+                                onChanged: (value) {
+                                  setState(() {
+                                    //modifiedIngredient.quantity = "${amountCtrl.text} ${value.toString()}";
+                                    //selectedIngredient.calories = (double.parse(selectedIngredient.calories) * double.parse(value.toString())).toString();
+                                    print(modifiedIngredient.calories);
+                                    this.value = value.toString();
+                                    setState(() {});
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          ref.read(ingredientProvider.notifier).addIngredient(selectedIngredient);
+                          if (value.toString() == "ml/gram") {
+                            //modifiedIngredient.quantity = "${amountCtrl.text} ${value.toString()}";
+                            modifiedIngredient.quantity = "${amountCtrl.text} ${value.toString()}";
+                            modifiedIngredient.calories = (double.parse(selectedIngredient.calories) * double.parse(amountCtrl.text)).toString();
+                          } else if (value.toString() == "kg") {
+                            modifiedIngredient.quantity = "${amountCtrl.text} ${value.toString()}";
+                            modifiedIngredient.calories = (double.parse(selectedIngredient.calories) * (double.parse(amountCtrl.text) * 1000)).toString();
+                          }
+                          ref.read(ingredientProvider.notifier).addIngredient(modifiedIngredient);
+                          //modifiedIngredient = Ingredient(name: "", quantity: "", calories: "");
+                          //selectedIngredient = Ingredient(name: "", quantity: "", calories: "");
                           Navigator.pop(context);
+                          print(selectedIngredient.calories);
+                          print(modifiedIngredient.calories);
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,

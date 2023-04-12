@@ -99,11 +99,11 @@ class _AppNavBarState extends ConsumerState<AppNavBar> {
       ),
       navBarStyle: NavBarStyle.style1, // Choos
       onItemSelected: (index){
-        if(index == 1){
+    /*    if(index == 1){
           showDialog(context: context, builder: (builder){
             return const GenerateLoading();
           });
-        }
+        }*/
       },// e the nav bar style with this property.
     );
   }
