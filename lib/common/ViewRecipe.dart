@@ -24,6 +24,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.only(top: size.height * 0.05, bottom: size.height * 0.05,),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/recipeBG.png"),
@@ -31,12 +32,12 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
             ),
           ),
           child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.only(left: size.width * 0.1, right: size.width * 0.1, top: size.height * 0.05, bottom: size.height * 0.05,),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.1, right: size.width * 0.1),
+                  child: Text(
                     widget.recipe.recipeName ,
                     style: GoogleFonts.fredokaOne(
                       fontSize: 26,
@@ -44,75 +45,94 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                       color: const Color(0xff83400D)
                     ),
                   ),
-                  const SizedBox(height: 20,),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(widget.recipe.recipeImageUrl),
-                        fit: BoxFit.cover,
+                ),
+                const SizedBox(height: 20,),
+                Container(
+                  height: 200,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(left: size.width * 0.1, right: size.width * 0.1,),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: NetworkImage(widget.recipe.recipeImageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20,),
+                Container(
+                  margin: EdgeInsets.only(left: size.width * 0.08, right: size.width * 0.08),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 2
                       ),
-                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(15))
                   ),
-                  Text(
-                    "Source: ${widget.recipe.recipeSourceUrl}",
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "Serving Size: ${widget.recipe.recipeServingSize}",
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  HtmlWidget(
-                    widget.recipe.recipeDescription,
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Ingredients" ,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Column(
+                  padding: EdgeInsets.all(14),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(widget.recipe.recipeIngredients!.length, (index){
-                      return Text(
-                        "${widget.recipe.recipeIngredients![index].quantity} - ${widget.recipe.recipeIngredients![index].name}" ,
+                    children: [
+                      Text(
+                        "Source: ${widget.recipe.recipeSourceUrl}",
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Serving Size: ${widget.recipe.recipeServingSize}",
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      HtmlWidget(
+                        widget.recipe.recipeDescription,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        "Ingredients" ,
+                        style: GoogleFonts.fredoka(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(widget.recipe.recipeIngredients!.length, (index){
+                          return Text(
+                            "${widget.recipe.recipeIngredients![index].quantity}g - ${widget.recipe.recipeIngredients![index].name}" ,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        "Instructions" ,
+                        style: GoogleFonts.fredoka(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        widget.recipe.recipeInstructions ,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                         ),
-                      );
-                    }),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-
-                  const Text(
-                    "Instructions" ,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    widget.recipe.recipeInstructions ,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),

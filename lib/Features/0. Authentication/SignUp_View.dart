@@ -40,7 +40,7 @@ class _SignupViewState extends ConsumerState<SignupView> {
                     const CircleAvatar(
                       radius: 50.0,
                       backgroundColor:  Color(0xffD4486E),
-                      child: Icon(Icons.person_outline, color: Colors.white,),
+                      backgroundImage: AssetImage("assets/images/lutoLogo.png"),
                     ),
                     Form(
                       key: key,

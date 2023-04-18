@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gif/flutter_gif.dart';
@@ -43,7 +44,7 @@ class _LoginViewState extends ConsumerState<LoginView> with SingleTickerProvider
                   const CircleAvatar(
                     radius: 50.0,
                     backgroundColor: Color(0xffD4486E),
-                    child: Icon(Icons.person_outline, color: Colors.white,),
+                    backgroundImage: AssetImage("assets/images/lutoLogo.png"),
                   ),
                   Form(
                     key: key,
@@ -174,28 +175,89 @@ class _LoginViewState extends ConsumerState<LoginView> with SingleTickerProvider
                       ],
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Don't have an account? ",
-                      style: GoogleFonts.lato(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: "Sign Up",
+                  Column(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: "Don't have an account? ",
                           style: GoogleFonts.lato(
                             fontSize: 16,
-                            color: Colors.blue,
+                            color: Colors.black,
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              context.go('/Signup');
-                            },
+                          children: [
+                            TextSpan(
+                              text: "Sign Up",
+                              style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: Colors.blue,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  context.go('/Signup');
+                                },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                      SizedBox(height: 10,),
+                      RichText(
+                        text: TextSpan(
+                          text: "Forgot Password? ",
+                          style: GoogleFonts.lato(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "Reset",
+                              style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: Colors.blue,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  if (_emailCtrl.text.isNotEmpty) {
+                                    try {
+                                      FirebaseAuth.instance.sendPasswordResetEmail(email: _emailCtrl.text);
+                                      Fluttertoast.showToast(
+                                          msg: "Password reset link has been sent to your email",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
+                                    } on FirebaseAuthException catch (e) {
+                                      Fluttertoast.showToast(
+                                          msg: "No user found for that email",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
+                                    }
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter your email above",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0
+                                    );
+                                  }
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+
                 ],
               ),
             ),

@@ -113,7 +113,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                       label: const Text(
                         "Recipes",
                       ),
-                      labelStyle: GoogleFonts.lato(
+                      labelStyle: GoogleFonts.fredoka(
                           color: Colors.white
                       ),
                       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -146,7 +146,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                       label: const Text(
                         "Articles/Trivia",
                       ),
-                      labelStyle: GoogleFonts.lato(
+                      labelStyle: GoogleFonts.fredoka(
                           color: Colors.white
                       ),
                       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -243,8 +243,8 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                                   "${data.recipes![index].recipeName}",
                                                   maxLines: 2,
                                                   overflow: TextOverflow.ellipsis,
-                                                  style: GoogleFonts.lato(
-                                                      fontWeight: FontWeight.bold,
+                                                  style: GoogleFonts.fredoka(
+                                                      fontWeight: FontWeight.w500,
                                                       fontSize: 18
                                                   ),
                                                 ),
@@ -255,7 +255,7 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                                   "${data.recipes![index].recipeDescription!.replaceAll("<b>", "").replaceAll("</b>", "")}",
                                                   maxLines: 2,
                                                   overflow: TextOverflow.ellipsis,
-                                                  style: GoogleFonts.lato(
+                                                  style: GoogleFonts.fredoka(
                                                       fontSize: 14,
                                                       color: AppColors().grey,
                                                   ),
@@ -266,7 +266,8 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                                   children: [
                                                     Text(
                                                       "Est Calories: ${data.recipes![index].recipeCalories}",
-                                                      style: GoogleFonts.lato(),
+                                                      style: GoogleFonts.fredoka(
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -430,10 +431,10 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                            child: Center(
                              child: Text(
                               "Open Article",
-                              style: GoogleFonts.lato(
+                              style: GoogleFonts.fredoka(
                                 color: AppColors().primary,
                                 fontSize: 22,
-                                fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.w500
                           ),
                         ),
                            ),
@@ -473,21 +474,21 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                                     children: [
                                       AutoSizeText(
                                         triviaList![Random(seed).nextInt(triviaList.length-1)].trivia,
-                                        style: GoogleFonts.lato(
-                                          fontWeight: FontWeight.bold,
+                                        style: GoogleFonts.fredoka(
+                                          fontWeight: FontWeight.w500,
                                           color: Color(0xff306479),
                                         ),
                                         textAlign: TextAlign.center,
                                         minFontSize: 0,
                                         maxFontSize: 18,
-                                        maxLines: 3,
+                                        maxLines: 6,
                                       ),
                                       const SizedBox(
-                                        height: 10,
+                                        height: 5,
                                       ),
                                       AutoSizeText(
                                         "Source: ${triviaList![Random(seed).nextInt(triviaList.length-1)].source}",
-                                        style: GoogleFonts.lato(),
+                                        style: GoogleFonts.fredoka(),
                                         textAlign: TextAlign.center,
                                         minFontSize: 0,
                                         maxFontSize: 18,
