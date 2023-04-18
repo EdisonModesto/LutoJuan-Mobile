@@ -85,6 +85,7 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 0),
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(12)),
+                        color:const Color.fromRGBO(255, 255, 255, 0.42),
                         border: Border.all(width: 1, color: Colors.black),
                       ),
                       child: Center(
@@ -93,7 +94,7 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                           lastDay: DateTime.utc(2030, 3, 14),
                           focusedDay: DateTime.now(),
                           headerVisible: false,
-                          calendarStyle: CalendarStyle(
+                          calendarStyle: const CalendarStyle(
                             selectedDecoration: BoxDecoration(
                               color: Color(0xffFE8945),
                               shape: BoxShape.circle,
@@ -165,44 +166,51 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                                   var a = snapshot.data?.docs.where((element) => element.data()["Date"].toDate().toString().split(" ")[0] == _focusedDay.toString().split(" ")[0]);
                                   return Column(
                                     children: List.generate(a!.length, (index) {
-                                      return Container(
-                                        padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white60,
-                                          borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                          border: Border.all(width: 1, color: Colors.black),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  a.elementAt(index).data()["Name"],
-                                                  style: GoogleFonts.lato(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Color(0xffCF8145)
+                                      return Dismissible(
+                                        key: UniqueKey(),
+                                        onDismissed: (direction) {
+                                          FirebaseFirestore.instance.collection("Users").doc(AuthService().getID()).collection("Records").doc(a.elementAt(index).id).delete();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                                          margin: EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white60,
+                                            borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                            border: Border.all(width: 1, color: Colors.black),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    a.elementAt(index).data()["Name"],
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: const Color(0xffCF8145)
+                                                    ),
                                                   ),
-                                                ),
-                                                Text(
-                                                  a.elementAt(index).data()["Quantity"].toString(),
-                                                  style: GoogleFonts.lato(
-                                                      color: AppColors().grey
+                                                  Text(
+                                                    a.elementAt(index).data()["Quantity"].toString(),
+                                                    style: GoogleFonts.lato(
+                                                        color: AppColors().grey
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              a.elementAt(index).data()["Calories"].toString(),
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black
+                                                ],
                                               ),
-                                            ),
-                                          ],
+                                              Text(
+                                                a.elementAt(index).data()["Calories"].toString(),
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       );
                                     }),
@@ -244,44 +252,51 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                                     var a = snapshot.data?.docs.where((element) => element.data()["Date"].toDate().toString().split(" ")[0] == _focusedDay.toString().split(" ")[0]);
                                     return Column(
                                       children: List.generate(a!.length, (index) {
-                                        return Container(
-                                          padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white60,
-                                            borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                            border: Border.all(width: 1, color: Colors.black),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    a.elementAt(index).data()["Name"],
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Color(0xffCF8145)
+                                        return Dismissible(
+                                          key: UniqueKey(),
+                                          onDismissed: (direction) {
+                                            FirebaseFirestore.instance.collection("Users").doc(AuthService().getID()).collection("Records").doc(a.elementAt(index).id).delete();
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                                            margin: EdgeInsets.only(bottom: 10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white60,
+                                              borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                              border: Border.all(width: 1, color: Colors.black),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      a.elementAt(index).data()["Name"],
+                                                      style: GoogleFonts.lato(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: const Color(0xffCF8145)
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    a.elementAt(index).data()["Quantity"].toString(),
-                                                    style: GoogleFonts.lato(
-                                                        color: AppColors().grey
+                                                    Text(
+                                                      a.elementAt(index).data()["Quantity"].toString(),
+                                                      style: GoogleFonts.lato(
+                                                          color: AppColors().grey
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text(
-                                                a.elementAt(index).data()["Calories"].toString(),
-                                                style: GoogleFonts.lato(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
+                                                Text(
+                                                  a.elementAt(index).data()["Calories"].toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }),
@@ -323,44 +338,51 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                                     var a = snapshot.data?.docs.where((element) => element.data()["Date"].toDate().toString().split(" ")[0] == _focusedDay.toString().split(" ")[0]);
                                     return Column(
                                       children: List.generate(a!.length, (index) {
-                                        return Container(
-                                          padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white60,
-                                            borderRadius: const BorderRadius.all(Radius.circular(12)),
-                                            border: Border.all(width: 1, color: Colors.black),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    a.elementAt(index).data()["Name"],
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Color(0xffCF8145)
+                                        return Dismissible(
+                                          key: UniqueKey(),
+                                          onDismissed: (direction) {
+                                            FirebaseFirestore.instance.collection("Users").doc(AuthService().getID()).collection("Records").doc(a.elementAt(index).id).delete();
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                                            margin: EdgeInsets.only(bottom: 10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white60,
+                                              borderRadius: const BorderRadius.all(Radius.circular(12)),
+                                              border: Border.all(width: 1, color: Colors.black),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      a.elementAt(index).data()["Name"],
+                                                      style: GoogleFonts.lato(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: const Color(0xffCF8145)
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    a.elementAt(index).data()["Quantity"].toString(),
-                                                    style: GoogleFonts.lato(
-                                                        color: AppColors().grey
+                                                    Text(
+                                                      a.elementAt(index).data()["Quantity"].toString(),
+                                                      style: GoogleFonts.lato(
+                                                          color: AppColors().grey
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text(
-                                                a.elementAt(index).data()["Calories"].toString(),
-                                                style: GoogleFonts.lato(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
+                                                Text(
+                                                  a.elementAt(index).data()["Calories"].toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }),
@@ -420,7 +442,7 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                                                     style: GoogleFonts.lato(
                                                         fontSize: 16,
                                                         fontWeight: FontWeight.bold,
-                                                        color: Color(0xffCF8145)
+                                                        color: const Color(0xffCF8145)
                                                     ),
                                                   ),
                                                   Text(
@@ -463,7 +485,7 @@ class _TrackViewState extends ConsumerState<TrackView> with SingleTickerProvider
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         fixedSize: const Size(409, 53),
-                        backgroundColor: Color(0xffCF8145),
+                        backgroundColor: const Color(0xffCF8145),
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(6))
                         ),

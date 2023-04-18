@@ -181,7 +181,8 @@ class _CreateViewState extends ConsumerState<CreateView> with SingleTickerProvid
                                               style: GoogleFonts.lato(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold,
-                                                  color: AppColors().primary
+                                                  color: const Color(0xff7A6C2D)
+
                                               ),
                                             ),
                                             Text(
@@ -193,7 +194,7 @@ class _CreateViewState extends ConsumerState<CreateView> with SingleTickerProvid
                                           ],
                                         ),
                                         Text(
-                                          "${ingredient[index].calories}Kcal",
+                                          "${double.parse(ingredient[index].calories).toStringAsFixed(2)}Kcal",
                                           style: GoogleFonts.lato(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,

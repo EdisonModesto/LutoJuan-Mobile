@@ -63,7 +63,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                 Container(
                   margin: EdgeInsets.only(left: size.width * 0.08, right: size.width * 0.08),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color:const Color.fromRGBO(255, 255, 255, 0.42),
                       border: Border.all(
                           style: BorderStyle.solid,
                           width: 2
@@ -76,21 +76,23 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                     children: [
                       Text(
                         "Source: ${widget.recipe.recipeSourceUrl}",
-                        style: const TextStyle(
+                        style: GoogleFonts.fredoka(
                           fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 10),
                       Text(
                         "Serving Size: ${widget.recipe.recipeServingSize}",
-                        style: const TextStyle(
+                        style:  GoogleFonts.fredoka(
                           fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      HtmlWidget(
-                        widget.recipe.recipeDescription,
+                      Text(
+                          widget.recipe.recipeDescription,
+                        style:  GoogleFonts.fredoka(
+                          fontSize: 14,
+                        ),
                       ),
                       const SizedBox(height: 20),
                       Text(
@@ -106,7 +108,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                         children: List.generate(widget.recipe.recipeIngredients!.length, (index){
                           return Text(
                             "${widget.recipe.recipeIngredients![index].quantity}g - ${widget.recipe.recipeIngredients![index].name}" ,
-                            style: const TextStyle(
+                            style:   GoogleFonts.fredoka(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
                             ),
@@ -124,7 +126,7 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                       const SizedBox(height: 20),
                       Text(
                         widget.recipe.recipeInstructions ,
-                        style: const TextStyle(
+                        style:  GoogleFonts.fredoka(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                         ),

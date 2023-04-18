@@ -450,54 +450,51 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                         ),
                       ),
                       const SizedBox(height: 15,),
-                      Container(
-                        width: size.width,
-                        height: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
+                      InkWell(
+                        onTap: (){
+                          context.push("/trivias");
+
+                        },
+                        child: Container(
+                          width: size.width,
+                          height: 150,
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(250, 236, 179, 0.31),
+                              borderRadius: const BorderRadius.all(Radius.circular(12)),
+                              border: Border.all(color: Colors.black, width: 1)
+                          ),
+                          child: ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(12)),
-                            border: Border.all(color: Colors.black, width: 1)
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(12)),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 30,
-                                child: Container(
-                                  color: Colors.white60,
-                                  width: size.width,
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AutoSizeText(
-                                        triviaList![Random(seed).nextInt(triviaList.length-1)].trivia,
-                                        style: GoogleFonts.fredoka(
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xff306479),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 30,
+                                  child: Container(
+                                    color: Colors.white60,
+                                    width: size.width,
+                                    padding: const EdgeInsets.all(12),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          triviaList![Random(seed).nextInt(triviaList.length-1)].trivia,
+                                          style: GoogleFonts.fredoka(
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff306479),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          minFontSize: 0,
+                                          maxFontSize: 18,
+                                          maxLines: 7,
                                         ),
-                                        textAlign: TextAlign.center,
-                                        minFontSize: 0,
-                                        maxFontSize: 18,
-                                        maxLines: 6,
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      AutoSizeText(
-                                        "Source: ${triviaList![Random(seed).nextInt(triviaList.length-1)].source}",
-                                        style: GoogleFonts.fredoka(),
-                                        textAlign: TextAlign.center,
-                                        minFontSize: 0,
-                                        maxFontSize: 18,
-                                      ),
-                                    ],
+
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

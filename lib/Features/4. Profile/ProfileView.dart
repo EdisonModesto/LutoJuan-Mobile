@@ -119,8 +119,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                       width: size.width,
                       height: 50,
                       padding: const EdgeInsets.only(top: 15, bottom: 15, right: 25, left: 25),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           color: Color(0xffD9D9D9),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.all(Radius.circular(12))
                       ),
                       child: RichText(
@@ -149,8 +153,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                       width: size.width,
                       height: 50,
                       padding: const EdgeInsets.only(top: 15, bottom: 15, right: 25, left: 25),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           color: Color(0xffD9D9D9),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.all(Radius.circular(12))
                       ),
                       child: RichText(
@@ -179,8 +187,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                       width: size.width,
                       height: 50,
                       padding: const EdgeInsets.only(top: 15, bottom: 15, right: 25, left: 25),
-                      decoration: const BoxDecoration(
+                      decoration:  BoxDecoration(
                           color: Color(0xffD9D9D9),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.all(Radius.circular(12))
                       ),
                       child: RichText(
@@ -208,9 +220,13 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                     Container(
                       width: size.width,
                       height: 50,
-                      padding: const EdgeInsets.only(top: 15, bottom: 15, right: 25, left: 25),
-                      decoration: const BoxDecoration(
+                      padding: EdgeInsets.only(top: 15, bottom: 15, right: 25, left: 25),
+                      decoration: BoxDecoration(
                           color: Color(0xffD9D9D9),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.all(Radius.circular(12))
                       ),
                       child: RichText(
@@ -239,8 +255,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                       width: size.width,
                       height: 50,
                       padding: const EdgeInsets.only(top: 15, bottom: 15, right: 25, left: 25),
-                      decoration: const BoxDecoration(
+                      decoration:  BoxDecoration(
                           color: Color(0xffD9D9D9),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
+                          ),
                           borderRadius: BorderRadius.all(Radius.circular(12))
                       ),
                       child: RichText(
@@ -266,7 +286,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                     ),
                     const SizedBox(height:10),
 
-                    ElevatedButton(
+                    /*ElevatedButton(
                       onPressed: () {
 
                       },
@@ -279,7 +299,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                         ),
                       ),
                       child: const Text('FAQS'),
-                    ),
+                    ),*/
                   ],
                 );
               },
