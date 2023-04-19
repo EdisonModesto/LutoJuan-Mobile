@@ -42,6 +42,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
   var key = GlobalKey<FormState>();
   var goal = "Lose Weight";
   var url = "";
+  var weightMeasurement = "lbs";
+  var heightMeasurement = "ft";
 
   @override
   void initState() {
@@ -63,7 +65,7 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
         ),
         child: SizedBox(
           height: 500,
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: MediaQuery.of(context).size.width * 0.85,
           child: Padding(
             padding: const EdgeInsets.all(25.0),
             child: Form(
@@ -206,10 +208,12 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                               height: 50,
                               child: TextFormField(
                                 controller: heightCtrl,
+                                keyboardType: TextInputType.number,
                                 style: const TextStyle(
                                     fontSize: 14
                                 ),
                                 decoration: InputDecoration(
+                                  isDense: true,
                                   errorStyle: const TextStyle(height: 0),
                                   label: const Text("Height"),
                                   enabledBorder: OutlineInputBorder(
@@ -242,15 +246,41 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                             ),
                           ),
                           const SizedBox(width: 10,),
+                          DropdownButton(
+                            value: heightMeasurement,
+                            items: const [
+                              DropdownMenuItem(
+                                value: "m",
+                                child: Text(
+                                    "m"
+                                ),
+                              ),
+                              DropdownMenuItem(
+                                value: "ft",
+                                child: Text(
+                                    "ft"
+                                ),
+                              ),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                heightMeasurement = value.toString();
+                              });
+                            },
+                          ),
+                          const SizedBox(width: 10,),
+
                           Expanded(
                             child: SizedBox(
                               height: 50,
                               child: TextFormField(
+                                keyboardType: TextInputType.number,
                                 controller: weightCtrl,
                                 style: const TextStyle(
                                     fontSize: 14
                                 ),
                                 decoration: InputDecoration(
+                                  isDense: true,
                                   errorStyle: const TextStyle(height: 0),
                                   label: const Text("Weight"),
                                   enabledBorder: OutlineInputBorder(
@@ -282,6 +312,30 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                               ),
                             ),
                           ),
+                          const SizedBox(width: 10,),
+                          DropdownButton(
+                            value: weightMeasurement,
+                            items: const [
+                              DropdownMenuItem(
+                                value: "lbs",
+                                child: Text(
+                                    "lbs"
+                                ),
+                              ),
+                              DropdownMenuItem(
+                                value: "kg",
+                                child: Text(
+                                    "kg"
+                                ),
+                              ),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                weightMeasurement = value.toString();
+                              });
+                            },
+                          ),
+
                         ],
                       ),
                       const SizedBox(
@@ -330,8 +384,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                               nameCtrl.text,
                               url,
                               int.parse(ageCtrl.text),
-                              weightCtrl.text,
-                              heightCtrl.text,
+                              "${weightCtrl.text}$weightMeasurement",
+                              "${heightCtrl.text}$heightMeasurement",
                               goal,
                             );
                             Navigator.pop(context);

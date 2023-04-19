@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lutojuan/Features/NavBar/RecipeModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ViewRecipe extends ConsumerStatefulWidget {
   const ViewRecipe({
@@ -74,10 +76,30 @@ class _ViewRecipeState extends ConsumerState<ViewRecipe> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Source: ${widget.recipe.recipeSourceUrl}",
-                        style: GoogleFonts.fredoka(
-                          fontSize: 14,
+                      RichText(
+                        text: TextSpan(
+                          text: "Source: ",
+                          style: GoogleFonts.fredoka(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "${widget.recipe.recipeSourceUrl}",
+                              style: GoogleFonts.fredoka(
+                                fontSize: 14,
+                                color: Colors.blue,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  final Uri _url = Uri.parse(widget.recipe.recipeSourceUrl);
+
+                                  if (!await launchUrl(_url)) {
+                                  throw Exception('Could not launch $_url');
+                                  }
+                                },
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 10),
