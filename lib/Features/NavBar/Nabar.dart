@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lutojuan/Features/3.%20CalorieTracking/TrackView.dart';
 import 'package:lutojuan/Features/4.%20Profile/ProfileView.dart';
-import 'package:lutojuan/Services/JsonReadService.dart';
-import 'package:lutojuan/Services/SpoonacularService.dart';
+import 'package:lutojuan/Features/NavBar/PrivacyPolicyView.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../1. NewsFeed/Home_View.dart';
@@ -62,10 +61,30 @@ class _AppNavBarState extends ConsumerState<AppNavBar> {
     ];
   }
 
+  void showPolicy()async{
+    await Future.delayed(const Duration(seconds: 2));
+    showDialog(context: context, builder: (builder){
+      return Center(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: 600,
+                child: PrivacyPolicyView()
+            ),
+          ),
+        ),
+      );
+    });
+  }
 
   @override
   void initState() {
-   // ReadJson().loadData();
+    showPolicy();
     super.initState();
   }
 

@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lutojuan/Constants/articles.dart';
 import 'package:lutojuan/Constants/trivias.dart';
 import 'package:lutojuan/Features/NavBar/RecipeModel.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../Constants/Colors.dart';
 import 'Home_ViewModel.dart';
@@ -96,8 +94,13 @@ class _HomeVIewState extends ConsumerState<HomeVIew> {
                           onChanged: (val){
                             setState(() {});
                           },
+                          style: GoogleFonts.fredoka(
+                            color: Colors.white
+                          ),
+                          //isDense: true,
                           decoration: const InputDecoration(
-                            border: InputBorder.none
+                            border: InputBorder.none,
+                            isCollapsed: true,
                           ),
                         ),
                       ),
