@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lutojuan/Services/AuthService.dart';
 import 'package:lutojuan/Services/CloudService.dart';
 import 'package:lutojuan/Services/FilePickerService.dart';
@@ -356,6 +355,12 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                                 value: "Lose Weight",
                                 child: Text(
                                   "Lose Weight"
+                                ),
+                              ),
+                              DropdownMenuItem(
+                                value: "Maintain Weight",
+                                child: Text(
+                                    "Maintain Weigh"
                                 ),
                               ),
                               DropdownMenuItem(
