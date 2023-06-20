@@ -1,16 +1,36 @@
-# lutojuan
+<img src="/assets/images/lutoLogo.png" height="200">
 
-A new Flutter project.
+# LutoJuan Mobile
 
-## Getting Started
+Luto Juan is a revolutionary cooking app designed to help you prepare delicious, healthy, and affordable meals from the comfort of your own kitchen. With Luto Juan, you can browse through a wide range of recipes, and learn how to cook like a pro.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="/assets/images/lutojuanScreenshot.png" height="450">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+## 🧐 Features
+
+Here're some of the project's best features:
+
+- View Recipes
+- Generate Recipes
+- Calorie Tracker
+- Daily Articles
+- Daily Trivia
+
+
+
+## 💻 Built with
+
+Technologies used in the project:
+
+*   Flutter
+*   Firebase
+*   NPoint
+
+
+
+## Developed by: Edison Modesto
